@@ -40,13 +40,18 @@ sub save_byline {
 
 sub byline {
     my ( $ctx, $args, $cond ) = @_;
-    my $entry  = $ctx->stash('entry');
-    my $author = $ctx->stash('author');
-    return $ctx->_no_author_error unless $entry || $author;
-    return
-         $entry
-      && $entry->byline  ? $entry->byline  : $author
-      && $author->byline ? $author->byline : '';
+    if ( my $entry = $ctx->stash('entry') ) {
+        if ( $entry->byline ) {    # assume no 0 value
+            return $entry->byline;
+        }
+        elsif ( my $author = $e->author ) {
+            return $author->byline;
+        }
+    }
+    if ( my $author = $ctx->stash('author') ) {
+        return $author->byline || '';
+    }
+    return $ctx->_no_author_error;
 }
 
 1;
