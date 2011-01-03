@@ -4,7 +4,7 @@ use warnings;
 
 #--- transformer handlers
 
-sub add_byline_field {
+sub add_entry_byline_field {
     my ( $eh, $app, $param, $tmpl ) = @_;
     return unless $tmpl->isa('MT::Template');
     my $q = $app->can('query') ? $app->query : $app->param;
@@ -27,7 +27,7 @@ sub add_byline_field {
     $block_node->innerHTML($innerHTML);
     return $tmpl->insertBefore( $block_node, $host_node )
       or $app->error('failed to insertBefore');
-} ## end sub add_byline_field
+} ## end sub add_entry_byline_field
 
 sub save_byline {
     my ( $eh, $app, $obj, $orig ) = @_;
@@ -44,7 +44,7 @@ sub byline {
         if ( $entry->byline ) {    # assume no 0 value
             return $entry->byline;
         }
-        elsif ( my $author = $e->author ) {
+        elsif ( my $author = $entry->author ) {
             return $author->byline;
         }
     }
