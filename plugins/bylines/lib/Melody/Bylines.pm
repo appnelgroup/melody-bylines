@@ -25,24 +25,20 @@ sub add_byline_field {
     if ( $model eq 'author' ) {
         $innerHTML = qq{ 
     	<div class="textarea-wrapper" style="width:305px;">
-			<textarea name="byline" id="byline" class="full-width">$byline</textarea>
+      		<textarea name="byline" id="byline" class="full-width">$byline</textarea>
       	</div>	
-        };
+      };
         $host_node   = $tmpl->getElementById('url');
         $label_class = 'left-label';
     }
     else {
-        $innerHTML = qq{ 
-		<div class="textarea-wrapper">
-			<input name="byline" id="byline" class="full-width" mt:watch-change="1" value="$byline"/>
-		</div> 
-        };
+        $innerHTML
+          = qq{ <div class="textarea-wrapper"><input name="byline" id="byline" class="full-width" mt:watch-change="1" value="$byline"/></div> };
         $host_node = $tmpl->getElementById('tags')
           || $tmpl->getElementById('text');
         $label_class = 'top-label';
     }
-    return $app->error('getElementById failed')
-      unless $host_node;    # MT seems to ignore these messages.
+    return $app->error('getElementById failed') unless $host_node;
     my $block_node =
       $tmpl->createElement(
                             'app:setting',
@@ -51,11 +47,10 @@ sub add_byline_field {
                                label       => 'Byline',
                                label_class => $label_class,
                             }
-      );                    # need hint
+      );    # need hint
     $block_node->innerHTML($innerHTML);
     return $tmpl->insertAfter( $block_node, $host_node )
-      or $app->error('failed to insertBefore')
-      ;                     # MT seems to ignore these messages.
+      or $app->error('failed to insertBefore');
 } ## end sub add_byline_field
 
 sub save_byline {
@@ -63,6 +58,7 @@ sub save_byline {
     my $q = $app->can('query') ? $app->query : $app->param;
     my $byline = $q->param('byline') || '';
     $obj->byline($byline);
+    return 1;
 }
 
 #--- template tag handlers

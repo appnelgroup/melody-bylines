@@ -1,5 +1,6 @@
 name: Author Bylines
-id: Bylines
+id: bylines
+key: Bylines
 author_link: http://appnel.com/
 author_name: The Appnel Group
 description: 'Bylines for blog authors with the option to override it on a per entry basis.'
@@ -17,4 +18,4 @@ callbacks:
     MT::App::CMS::cms_pre_save.author: $Bylines::Melody::Bylines::save_byline
 tags:
     function:
-        EntryByline: $Bylines::Melody::Bylines::bylines
+        EntryByline: $Bylines::Melody::Bylines::byline
