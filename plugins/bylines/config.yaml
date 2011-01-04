@@ -4,17 +4,17 @@ author_link: http://appnel.com/
 author_name: The Appnel Group
 description: Bylines for blog authors with the option to override it on a per entry basis.
 version: 0.1
-schema_version: 1
+schema_version: 2 
 object_types:
-    author:
-        byline: text
+    # author:
+    #    byline: string(255) 
     entry:
-        byline: text
+        byline: string(255)
 callbacks:
     MT::App::CMS::template_param.edit_entry: $Bylines::Melody::Bylines::add_byline_field
     MT::App::CMS::cms_pre_save.entry: $Bylines::Melody::Bylines::save_bylines
     MT::App::CMS::template_param.edit_author: $Bylines::Melody::Bylines::add_bylines_field
     MT::App::CMS::cms_pre_save.author: $Bylines::Melody::Bylines::save_bylines
 tags:
-    block:
-        EntryPageQuote: $Bylines::Melody::Bylines::bylines
+    function:
+        EntryByline: $Bylines::Melody::Bylines::bylines
