@@ -1,20 +1,20 @@
-name: Bylines
+name: Author Bylines
 id: Bylines
 author_link: http://appnel.com/
 author_name: The Appnel Group
-description: Bylines for blog authors with the option to override it on a per entry basis.
+description: 'Bylines for blog authors with the option to override it on a per entry basis.'
 version: 0.1
-schema_version: 2 
+schema_version: 6 
 object_types:
-    # author:
-    #    byline: string(255) 
+    author:
+        byline: meta 
     entry:
-        byline: string(255)
+        byline: meta 
 callbacks:
     MT::App::CMS::template_param.edit_entry: $Bylines::Melody::Bylines::add_byline_field
-    MT::App::CMS::cms_pre_save.entry: $Bylines::Melody::Bylines::save_bylines
-    MT::App::CMS::template_param.edit_author: $Bylines::Melody::Bylines::add_bylines_field
-    MT::App::CMS::cms_pre_save.author: $Bylines::Melody::Bylines::save_bylines
+    MT::App::CMS::cms_pre_save.entry: $Bylines::Melody::Bylines::save_byline
+    MT::App::CMS::template_param.edit_author: $Bylines::Melody::Bylines::add_byline_field
+    MT::App::CMS::cms_pre_save.author: $Bylines::Melody::Bylines::save_byline
 tags:
     function:
         EntryByline: $Bylines::Melody::Bylines::bylines
